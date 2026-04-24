@@ -7,6 +7,7 @@ import Checkout from "./components/Checkout";
 import Login from "./components/Login";
 import { useStateValue } from "./state/StateProvider";
 import { auth } from "./auth/firebase";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -40,33 +41,36 @@ export default function App() {
 
   return (
     <Router>
-      <div className="bg-gray-100 min-h-screen">
+      <div className="bg-gray-100 min-h-screen flex flex-col">
         <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <main className="max-w-screen-2xl mx-auto">
-                <Banner />
-                <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
-                  {products?.map((product) => (
-                    <Product
-                      key={product.id}
-                      id={product.id}
-                      title={product.title}
-                      price={product.price}
-                      description={product.description}
-                      category={product.category}
-                      image={product.images[0]} // dummyjson এ images একটি array, তাই প্রথমটি নিন
-                    />
-                  ))}
-                </div>
-              </main>
-            }
-          />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} /> 
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <main className="max-w-screen-2xl mx-auto">
+                  <Banner />
+                  <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+                    {products?.map((product) => (
+                      <Product
+                        key={product.id}
+                        id={product.id}
+                        title={product.title}
+                        price={product.price}
+                        description={product.description}
+                        category={product.category}
+                        image={product.images} // dummyjson এ images একটি array, তাই প্রথমটি নিন
+                      />
+                    ))}
+                  </div>
+                </main>
+              }
+            />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   );

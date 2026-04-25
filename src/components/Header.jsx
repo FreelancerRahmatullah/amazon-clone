@@ -16,67 +16,75 @@ export default function Header() {
   };
 
   return (
-    <nav className="flex items-center bg-[#131921] p-2 sticky top-0 z-50 justify-between">
-      {/* Logo */}
-      <Link to="/">
-        <div className="mt-2 ml-4 flex items-center border border-transparent hover:border-white p-1 cursor-pointer">
-          <img
-            src="/amazon.jpg"
-            alt="amazon logo"
-            className="w-24 object-contain"
-          />
-        </div>
-      </Link>
+<nav className="flex items-center bg-[#131921] p-2 sticky top-0 z-50 justify-between gap-2 md:gap-4">
+  {/* Logo */}
+  <Link to="/">
+    <div className="mt-1 ml-1 md:ml-4 flex items-center border border-transparent hover:border-white p-1 cursor-pointer">
+      <img
+        src="/amazon.jpg"
+        alt="amazon logo"
+        className="w-16 md:w-24 object-contain"
+      />
+    </div>
+  </Link>
 
-      {/* Location */}
-      <div className="hidden md:flex text-white ml-4 items-center border border-transparent hover:border-white p-1 cursor-pointer">
-        <MapPin size={20} className="mt-2" />
-        <div className="flex flex-col ml-1">
-          <span className="text-xs text-gray-300">Deliver to</span>
-          <span className="text-sm font-bold">Bangladesh</span>
-        </div>
+  {/* Location - Hidden on Mobile */}
+  <div className="hidden lg:flex text-white ml-2 items-center border border-transparent hover:border-white p-1 cursor-pointer whitespace-nowrap">
+    <MapPin size={20} className="mt-2" />
+    <div className="flex flex-col ml-1">
+      <span className="text-xs text-gray-300">Deliver to</span>
+      <span className="text-sm font-bold">Bangladesh</span>
+    </div>
+  </div>
+
+  {/* Search Bar - Grows to fill space */}
+  <div className="flex flex-1 items-center h-9 md:h-10 rounded-md bg-[#febd69] hover:bg-[#f3a847] cursor-pointer">
+    <input
+      type="text"
+      className="h-full w-full p-2 flex-grow rounded-l-md focus:outline-none px-2 md:px-4 text-black text-sm"
+      placeholder="Search Amazon"
+    />
+    <div className="p-2">
+      <Search className="text-[#131921]" size={20} />
+    </div>
+  </div>
+
+  {/* Right Section */}
+  <div className="text-white flex items-center space-x-2 md:space-x-6 px-1 md:mx-4 whitespace-nowrap">
+    {/* Auth Section */}
+    <Link to={!user && "/login"}>
+      <div
+        onClick={handleAuthentication}
+        className="cursor-pointer border border-transparent hover:border-white p-1"
+      >
+        <p className="text-[10px] md:text-xs">Hello, {user ? user.email.split('@')[0] : "Guest"}</p>
+        <p className="text-xs md:text-sm font-extrabold">
+          {user ? "Sign Out" : "Sign In"}
+        </p>
       </div>
+    </Link>
 
-      {/* Search Bar */}
-      <div className="flex grow items-center h-10 rounded-md bg-[#febd69] hover:bg-[#f3a847] ml-4 cursor-pointer">
-        <input
-          type="text"
-          className="h-full w-full p-2 grow rounded-l-md focus:outline-none px-4 text-black"
-          placeholder="Search Amazon"
-        />
-        <Search className="p-2 text-[#131921]" size={40} />
+    {/* Orders - Hidden on Mobile/Small screens */}
+    <Link to="/orders" className="hidden sm:inline">
+      <div className="cursor-pointer border border-transparent hover:border-white p-1">
+        <p className="text-xs">Returns</p>
+        <p className="text-sm font-extrabold">& Orders</p>
       </div>
+    </Link>
 
-      {/* Auth Section */}
-      <div className="text-white flex items-center space-x-6 mx-6">
-        {/* যদি ইউজার লগইন না থাকে তবেই /login এ যাবে */}
-        <Link to={!user && '/login'}>
-          <div onClick={handleAuthentication} className="cursor-pointer border border-transparent hover:border-white p-1">
-            <p className="text-xs">Hello, {user ? user.email : 'Guest'}</p>
-            <p className="text-sm font-extrabold">{user ? 'Sign Out' : 'Sign In'}</p>
-          </div>
-        </Link>
+    {/* Cart */}
+    <Link to="/checkout">
+      <div className="relative flex items-center cursor-pointer border border-transparent hover:border-white p-1">
+        <ShoppingCart size={28} />
+        <span className="absolute -top-1 right-0 md:right-7 bg-[#f08804] text-black font-bold rounded-full h-4 w-4 text-[10px] flex items-center justify-center">
+          {basket?.length || 0}
+        </span>
+        <p className="hidden md:inline font-extrabold text-sm mt-3 ml-1">
+          Cart
+        </p>
       </div>
-
-      {/* Right Section */}
-      <div className="text-white flex items-center space-x-6 mx-6 whitespace-nowrap">
-        <div className="cursor-pointer border border-transparent hover:border-white p-1">
-          <p className="text-xs">Returns</p>
-          <p className="text-sm font-extrabold">& Orders</p>
-        </div>
-
-        <Link to="/checkout">
-          <div className="relative flex items-center cursor-pointer border border-transparent hover:border-white p-1">
-            <ShoppingCart size={30} />
-            <span className="absolute top-0 right-0 md:right-8 bg-[#f08804] text-black font-bold rounded-full h-4 w-4 text-[10px] flex items-center justify-center">
-              {basket?.length}
-            </span>
-            <p className="hidden md:inline font-extrabold text-sm mt-3 ml-1">
-              Cart
-            </p>
-          </div>
-        </Link>
-      </div>
-    </nav>
+    </Link>
+  </div>
+</nav>
   );
 }

@@ -62,7 +62,7 @@ const Footer = () => {
 
       <div className="border-t border-gray-600 py-10 flex flex-col items-center">
         <img
-          src="https://pngimg.com"
+          src="/amazon.jpg"
           className="w-20 object-contain mb-5"
           alt="logo"
         />

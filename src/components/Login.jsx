@@ -55,7 +55,7 @@ function Login() {
       <Link to="/">
         <img
           className="my-5 w-24 object-contain"
-          src="https://wikimedia.org"
+          src="/amazon.jpg"
           alt="Amazon Logo"
         />
       </Link>

@@ -101,7 +101,7 @@ function Login() {
         </div>
 
         <button
-          onClick={register}
+          onClick={()=> navigate('/register')}
           className="bg-gray-100 hover:bg-gray-200 rounded-sm w-full h-8 border border-gray-400 mt-4 text-sm font-medium shadow-sm transition duration-200"
         >
           Create your Amazon Account
